@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Jost", sans-serif;
+  --color-blush: #EAC3CE;
+  --color-blush-deep: #BFA2AB;
+  --color-rose: #EAC3CE;
+  --color-rose-dark: #BFA2AB;
+  --color-nude: #fff0f3;
+  --color-offwhite: #fdf8f9;
+  --color-beige: #f7eef1;
+  --color-gold: #FAC7C2;
+  --color-gold-light: #FAC7C2;
+  --color-text-dark: #1a1a1a;
+  --color-text-mid: #4a3a3d;
+  --color-text-light: #BFA2AB;
+}
+
+/* Base custom styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-offwhite);
+  color: var(--color-text-dark);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-offwhite);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-blush-deep);
+  border-radius: 3px;
+}
+
+/* Custom animation classes */
+.scroll-pulse {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+
+.wa-pulse {
+  animation: waPulse 3s ease-in-out infinite;
+}
+
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.35); }
+  50% { box-shadow: 0 6px 40px rgba(37,211,102,0.55); }
+}
+
+/* Extra typography utils */
+.font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
