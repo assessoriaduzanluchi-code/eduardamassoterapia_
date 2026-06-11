@@ -1,7 +1,7 @@
 import  { useState, useEffect } from "react";
 import { SiteContent } from "./types";
 import { defaultSiteContent } from "./data";
-import eduardaPortrait from "./assets/images/eduarda_portrait_new.jpg";
+import eduardaPortrait from "./assets/images/edwarda_portraite_new.jpg";
 import experiencia1 from "./assets/images/experiencia_1.jpg";
 import experiencia2 from "./assets/images/experiencia_2.jpg";
 import resultados1 from "./assets/images/resultados_1.png";
