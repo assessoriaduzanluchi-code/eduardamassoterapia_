@@ -1,12 +1,6 @@
 import  { useState, useEffect } from "react";
 import { SiteContent } from "./types";
 import { defaultSiteContent } from "./data";
-import eduardaPortrait from "./assets/images/edwarda_portrait_newv3.jpg";
-import experiencia1 from "./assets/images/experiencia_1_newv3.jpg";
-import experiencia2 from "./assets/images/experiencia_2_newv3.jpg";
-import resultados1 from "./assets/images/resultados_1_newv3.png";
-import resultados2 from "./assets/images/resultados_2_newv3.jpg";
-import resultados3 from "./assets/images/resultados_3_newv3.png";
 import { IconMapper } from "./components/IconMapper";
 import { LiveEditor } from "./components/LiveEditor";
 import { 
@@ -29,117 +23,7 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(null);
 
-  // Load from localStorage on mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("zanluchi_site_content");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        let updated = false;
-        if (parsed?.hero?.subtitle && parsed.hero.subtitle.includes("remodelação corporal — sem cirurgia")) {
-          parsed.hero.subtitle = parsed.hero.subtitle.replace("remodelação corporal — sem cirurgia", "remodelação corporal. Sem cirurgia");
-          updated = true;
-        }
-        if (parsed?.hero?.titleItalic === "exculsivo.") {
-          parsed.hero.titleItalic = "exclusivo.";
-          updated = true;
-        }
-        if (parsed?.sobre?.tags && (parsed.sobre.tags.length !== 4 || parsed.sobre.tags[1]?.toLowerCase() !== "criolipolise especializada")) {
-          parsed.sobre.tags = [
-            "Estética corporal avançada",
-            "Criolipolise especializada",
-            "Recuperação abdominal",
-            "Protocolos individualizados"
-          ];
-          updated = true;
-        }
-        if (parsed?.beneficios?.list) {
-          const vipItem = parsed.beneficios.list.find((item: any) => item.title === "Acompanhamento Vip");
-          if (vipItem && vipItem.description !== "Suporte especializado constante, antes e durante seu processo até o retorno.") {
-            vipItem.description = "Suporte especializado constante, antes e durante seu processo até o retorno.";
-            updated = true;
-          }
-        }
-        if (parsed?.experiencia?.features) {
-          const aromaticoItem = parsed.experiencia.features.find((item: any) => item.title.includes("Ambiente Aromático"));
-          if (aromaticoItem && !aromaticoItem.description.includes("carta de cafés e chás")) {
-            aromaticoItem.description = "Arquitetura refinada, ambiente confortável, luz suave e uma deliciosa carta de cafés e chás para você aproveitar enquanto aguarda o horário.";
-            updated = true;
-          }
-          const biossegurancaItem = parsed.experiencia.features.find((item: any) => item.title.includes("Biossegurança"));
-          if (biossegurancaItem && !biossegurancaItem.description.includes("todos os materiais esterilizados")) {
-            biossegurancaItem.description = "todos os materiais esterilizados de acordo com as diretrizes médica recomendadas";
-            updated = true;
-          }
-          const resultadosItem = parsed.experiencia.features.find((item: any) => item.title.includes("Acompanhamento de Resultados"));
-          if (resultadosItem && resultadosItem.description.includes("Bioimpedância de controle")) {
-            resultadosItem.description = "Registros fotográficos, acompanhamento de medidas e suporte no WhatsApp";
-            updated = true;
-          }
-        }
-        if (parsed?.antesDepois) {
-          if (parsed.antesDepois.titleNormal && parsed.antesDepois.titleNormal.includes("Antes & Depois")) {
-            parsed.antesDepois.titleNormal = "Resultados de Sucesso";
-            updated = true;
-          }
-          if (parsed.antesDepois.list && parsed.antesDepois.list.length >= 3) {
-            const item1 = parsed.antesDepois.list[0];
-            if (item1.tag !== "Redução Abdominal de Sucesso" || !item1.description.includes("Crio Zanluchi")) {
-              item1.tag = "Redução Abdominal de Sucesso";
-              item1.description = "Eliminação expressiva de gordura abdominal em apenas uma única sessão de Crio Zanluchi";
-              item1.beforeLabel = "";
-              item1.afterLabel = "";
-              updated = true;
-            }
-            const item2 = parsed.antesDepois.list[1];
-            if (item2.tag !== "Recuperação Abdominal" || !item2.description.includes("diástase")) {
-              item2.tag = "Recuperação Abdominal";
-              item2.description = "Fechamento de diástase abdominal e melhora funcional da postura em 5 semanas";
-              item2.beforeLabel = "";
-              item2.afterLabel = "";
-              updated = true;
-            }
-            const item3 = parsed.antesDepois.list[2];
-            if (item3.tag !== "Alívio e Definição" || !item3.description.includes("inchaço")) {
-              item3.tag = "Alívio e Definição";
-              item3.description = "Alívio imediato do inchaço e definição do contorno corporal, relaxamento profundo";
-              item3.beforeLabel = "";
-              item3.afterLabel = "";
-              updated = true;
-            }
-          }
-        }
-        if (parsed?.protocolos?.list && parsed.protocolos.list.length >= 3) {
-          const proto3 = parsed.protocolos.list[2];
-          if (proto3.tag !== "Protocolo 3 - massagem 100% manual" || proto3.name !== "MAF - muito além de uma simples drenagem") {
-            proto3.tag = "Protocolo 3 - massagem 100% manual";
-            proto3.name = "MAF - muito além de uma simples drenagem";
-            updated = true;
-          }
-        }
-        if (parsed?.depoimentos) {
-          if (parsed.depoimentos.googleReviewLink !== "https://share.google/kXZrBIqbXfcR7Sf0V") {
-            parsed.depoimentos.googleReviewLink = "https://share.google/kXZrBIqbXfcR7Sf0V";
-            parsed.depoimentos.googleReviewText = "Excelente! Avaliado em 5.0 estrelas com base em avaliações reais de clientes no Google Business";
-            updated = true;
-          }
-        }
-        if (parsed?.faq?.list) {
-          const faqItem = parsed.faq.list.find((item: any) => item.q && item.q.includes("dolorosos ou invasivos"));
-          if (faqItem && !faqItem.a.includes("Nenhum procedimento realizado é invasivo")) {
-            faqItem.a = "Nenhum procedimento realizado é invasivo, todos nossos tratamentos são livres de agulhas, cortes ou anestesia. A criolipolise causa resfriamento e dormência temporária durante o procedimento, a massagem é altamente terapêutica e relaxante, o tratamento da diástase provoca esforços de resistência, sem dor aguda.";
-            updated = true;
-          }
-        }
-        if (updated) {
-          localStorage.setItem("zanluchi_site_content", JSON.stringify(parsed));
-        }
-        setContent(parsed);
-      }
-    } catch (e) {
-      console.error("Local storage load failed", e);
-    }
-
     // Scroll listener for nav
     const handleScroll = () => {
       if (window.scrollY > 60) {
@@ -155,21 +39,11 @@ export default function App() {
   // Save hander
   const handleSaveContent = (newContent: SiteContent) => {
     setContent(newContent);
-    try {
-      localStorage.setItem("zanluchi_site_content", JSON.stringify(newContent));
-    } catch (e) {
-      console.error("Local storage save failed", e);
-    }
   };
 
   // Reset handler
   const handleResetContent = () => {
     setContent(defaultSiteContent);
-    try {
-      localStorage.removeItem("zanluchi_site_content");
-    } catch (e) {
-      console.error("Local storage reset failed", e);
-    }
   };
 
   const toggleFaq = (index: number) => {
@@ -405,7 +279,7 @@ export default function App() {
               <div className="absolute -top-4 -left-4 w-4/5 h-4/5 border border-rose rounded z-0" />
               <div className="absolute -bottom-4 -right-4 w-2/3 h-2/3 bg-nude rounded z-0" />
               <img
-                src={eduardaPortrait}
+                src="/images/eduarda_portrait.jpg"
                 alt="Eduarda Zanluchi"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
@@ -705,14 +579,14 @@ export default function App() {
             <div className="lg:col-span-6 grid grid-cols-2 gap-6 items-center">
               <div>
                 <img
-                  src={experiencia1}
+                  src="/images/experiencia_1.jpg"
                   alt="Espaço Clínico Zanluchi"
                   className="w-full aspect-[3/4] object-cover rounded shadow-lg hover:shadow-xl transition-shadow duration-300"
                 />
               </div>
               <div className="pt-12">
                 <img
-                  src={experiencia2}
+                  src="/images/experiencia_2.jpg"
                   alt="Ambiente Exclusivo"
                   className="w-full aspect-[3/4] object-cover rounded shadow-lg hover:shadow-xl transition-shadow duration-300"
                 />
@@ -747,7 +621,7 @@ export default function App() {
               <div key={idx} className="bg-white border border-rose-dark/20 rounded overflow-hidden shadow transition-all hover:translate-y-[-4px] hover:shadow-xl">
                 <div className="aspect-square relative bg-stone-100 overflow-hidden">
                   <img 
-                    src={idx === 0 ? resultados1 : idx === 1 ? resultados2 : resultados3}
+                    src={idx === 0 ? "/images/resultados_1.png" : idx === 1 ? "/images/resultados_2.jpg" : "/images/resultados_3.png"}
                     alt={item.tag}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
