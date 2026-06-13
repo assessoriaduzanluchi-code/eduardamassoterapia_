@@ -1,12 +1,12 @@
 import  { useState, useEffect } from "react";
 import { SiteContent } from "./types";
 import { defaultSiteContent } from "./data";
-import eduardaPortrait from "./assets/images/edwarda_portraite_new.jpg";
-import experiencia1 from "./assets/images/experiencia_1.jpg";
-import experiencia2 from "./assets/images/experiencia_2.jpg";
-import resultados1 from "./assets/images/resultados_1.png";
-import resultados2 from "./assets/images/resultados_2.jpg";
-import resultados3 from "./assets/images/resultados_3.png";
+import eduardaPortrait from "./assets/images/edwarda_portrait_newv3.jpg";
+import experiencia1 from "./assets/images/experiencia_1_newv3.jpg";
+import experiencia2 from "./assets/images/experiencia_2_newv3.jpg";
+import resultados1 from "./assets/images/resultados_1_newv3.png";
+import resultados2 from "./assets/images/resultados_2_newv3.jpg";
+import resultados3 from "./assets/images/resultados_3_newv3.png";
 import { IconMapper } from "./components/IconMapper";
 import { LiveEditor } from "./components/LiveEditor";
 import { 
